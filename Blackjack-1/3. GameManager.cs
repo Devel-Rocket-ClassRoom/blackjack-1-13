@@ -51,12 +51,19 @@ class GameManager
                     WriteLine($"플레이어 점수: {score}");
                     WriteLine();
 
+                    // 나상욱 추가 (플레이어가 21을 달성시 바로 딜러 게임 결과 및 플레이서 승리 표시
+                    if (score == 21)
+                    {
+                        GameResult();
+                    }
+
                     if (score > 21)  // 플레이어 버스트 ( 21 초과시 )
                     {
                         Console.WriteLine("버스트! 21을 초과했습니다.");
                         winner = "딜러";
                         return;
                     }
+                    // 요까지 (이슈 : 게임은 플레이서 승리는 표시하지만 게임이 안끝나고 힛스탠드 표시로 넘어감
                 }
                 else  // 플레이어 스탠드
                 {
@@ -84,6 +91,15 @@ class GameManager
                             score = _dealer.ScoreCounter();
                             WriteLine($"딜러 점수: {score}");
                             WriteLine();
+                            // 나상욱 추가 (딜러 21점 초과시에도 플레이어 패배)
+                            if (score > 21)
+                            {
+                                WriteLine("빠스트!!!!! 나가!!!!");
+                                winner = "플레이어";
+                                GameResult();
+                                return;
+                            }
+                            // 여기까지 추가
                         }
                         else
                         {
