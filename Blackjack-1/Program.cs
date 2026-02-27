@@ -15,8 +15,8 @@ while (true)
     Console.WriteLine("카드를 섞는 중...");
     Console.WriteLine();
 
-    // 카드 초기화
-    Card[,] cards = new Card[4, 13];
+    // 2차원 배열 카드 초기화 cards
+    Card[,] cards = new Card[4, 13];   
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 13; j++)
@@ -25,6 +25,7 @@ while (true)
         }
     }
 
+ 
     Player dealer = new Player("딜러");
     dealer.AddCard(Card.DrawCard(cards));
     dealer.AddCard(Card.DrawCard(cards));

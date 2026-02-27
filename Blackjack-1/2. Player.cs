@@ -6,26 +6,26 @@ using System.Text;
 
 class Player
 {
-    public Card[] MyCard = new Card[11];
+    // 플레이어 (딜러 혹은 플레이어)의 손에 있는 카드 배열
+    public Card[] MyCard = new Card[11];  
 
-    public int currentCardNum = 0;
-    public int Score { get; set; }
-    public string Name { get; set; }
+    public int currentCardNum = 0;  // 현재 카드의 수 set to 0
+    public int Score { get; set; }  // 점수 프로퍼티
+    public string Name { get; set; }  // 플레이어 이름 프로퍼티
 
-    public Player (string name)
+    public Player (string name)  // 플레이서 생성자 - 이름과 점수 초기화
     {
         Name = name;
         Score = 0;
-        
     }
 
-    public void AddCard(Card card)
+    public void AddCard(Card card)  // MyCard 배열에 카드를 추가하는 메서드
     {
-        MyCard[currentCardNum] = card;
+        MyCard[currentCardNum] = card; 
         currentCardNum++;
     }
 
-    public void ShowCard()
+    public void ShowCard()  // 카드 표시 메서드
     {
         for(int i = 0; i< currentCardNum; i++)
         {
@@ -34,10 +34,10 @@ class Player
         Console.WriteLine();
     }
 
-    public int ScoreCounter()
+    public int ScoreCounter()  // 점수 
     {
         int sum = 0;
-        int number;
+        int number;  // 후에 out으로 할당
         for (int i = 0; i < currentCardNum; i++)
         {
             bool success = int.TryParse(MyCard[i].CardNumber, out number);

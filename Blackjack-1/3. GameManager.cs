@@ -9,13 +9,14 @@ class GameManager
     private Player _dealer;
     private string winner = null;
 
+    // 게임 매니저 생성자 플레이어 지정
     public GameManager(Player dealer, Player player)
     {
         _player = player;
         _dealer = dealer;
     }
 
-    public void Init()
+    public void Init()  // 초기 스테이지
     {
         WriteLine("=== 초기 패 ===");
         WriteLine($"딜러의 패: [??] [{_dealer.MyCard[1].CardShape}{_dealer.MyCard[1].CardNumber}]");
@@ -27,7 +28,7 @@ class GameManager
         WriteLine($"플레이어 점수: {_player.ScoreCounter()}");
     }
 
-    public void GameStart(Card[,] cards)
+    public void GameStart(Card[,] cards)  // 게임 시작 스테이지
     {
         while (true)
         {
@@ -36,7 +37,7 @@ class GameManager
             if (string.Equals(query, "h", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(query, "s", StringComparison.OrdinalIgnoreCase))
             {
-                if (query == "h")
+                if (query == "h")  // 플레이어 힛
                 {
                     Card drawCard = Card.DrawCard(cards);
                     WriteLine();
@@ -50,14 +51,14 @@ class GameManager
                     WriteLine($"플레이어 점수: {score}");
                     WriteLine();
 
-                    if (score > 21)
+                    if (score > 21)  // 플레이어 버스트 ( 21 초과시 )
                     {
                         Console.WriteLine("버스트! 21을 초과했습니다.");
                         winner = "딜러";
                         return;
                     }
                 }
-                else
+                else  // 플레이어 스탠드
                 {
                     Card drawCard;
                     int score = _dealer.ScoreCounter();
@@ -72,7 +73,7 @@ class GameManager
 
                     while (true)
                     {
-                        if(score < 17)
+                        if(score < 17)  // 딜러는 카드의 합이 17이상이 될 때까지 드로우
                         {
                             drawCard = Card.DrawCard(cards);
                             Write($"딜러가 카드를 받았습니다: ");
@@ -86,7 +87,7 @@ class GameManager
                         }
                         else
                         {
-                            if(score > 21)
+                            if(score > 21)  // 딜러 버스트
                             {
                                 Console.WriteLine("버스트! 21을 초과했습니다.");
                                 winner = "플레이어";
@@ -98,9 +99,10 @@ class GameManager
                     }
                 }
             }
-            else
+            else  // 힛(H) 혹은 스탠그 (S)를 제외한 문자 입력시
             {
                 Console.WriteLine("H 나 S를 입력해주세요");
+                WriteLine();
             }
         }
     }
