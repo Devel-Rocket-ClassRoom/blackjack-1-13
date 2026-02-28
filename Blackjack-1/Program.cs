@@ -10,10 +10,7 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 while (true)
 {
 
-    Console.WriteLine("=== 블랙잭 게임 ===");
-    Console.WriteLine();
-    Console.WriteLine("카드를 섞는 중...");
-    Console.WriteLine();
+   
 
     // 2차원 배열 카드 초기화 cards
     Card[,] cards = new Card[4, 13];   

@@ -8,6 +8,7 @@ class GameManager
     private Player _player;
     private Player _dealer;
     private string winner = null;
+    private int _bet = 0;
 
     // 게임 매니저 생성자 플레이어 지정
     public GameManager(Player dealer, Player player)
@@ -16,8 +17,43 @@ class GameManager
         _dealer = dealer;
     }
 
+
+    public void BettingCheck ()    //  베팅금액 체크;
+    {
+        while (true)
+        {
+            Write("베팅 금액을 입력하세요: ");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int number))
+            {
+                if (_player.Chips >= number)
+                {
+                    _bet = number;
+                    break;
+                }
+                else
+                {
+                    WriteLine("보유한 칩보다 베팅금액이 많습니다.");
+                }
+                
+            }
+            else
+            {
+                Console.WriteLine("숫자를 입력해주세요");
+            }
+        }
+    }
+
+
     public void Init()  // 초기 스테이지
     {
+        Console.WriteLine("=== 블랙잭 게임 ===");
+        WriteLine($"보유 칩: {_player.Chips}개");
+        Console.WriteLine();
+        BettingCheck();  // 베팅체크
+        Console.WriteLine("카드를 섞는 중...");
+        Console.WriteLine();
         WriteLine("=== 초기 패 ===");
         WriteLine($"딜러의 패: [??] [{_dealer.MyCard[1].CardShape}{_dealer.MyCard[1].CardNumber}]");
         WriteLine("딜러 점수: ?");
@@ -51,11 +87,7 @@ class GameManager
                     WriteLine($"플레이어 점수: {score}");
                     WriteLine();
 
-                    // 나상욱 추가 (플레이어가 21을 달성시 바로 딜러 게임 결과 및 플레이서 승리 표시
-                    if (score == 21)
-                    {
-                        GameResult();
-                    }
+                   
 
                     if (score > 21)  // 플레이어 버스트 ( 21 초과시 )
                     {
@@ -80,38 +112,26 @@ class GameManager
 
                     while (true)
                     {
-                        if(score < 17)  // 딜러는 카드의 합이 17이상이 될 때까지 드로우
+                        drawCard = Card.DrawCard(cards);
+                        Write($"딜러가 카드를 받았습니다: ");
+                        _dealer.AddCard(drawCard);
+                        WriteLine($"[{drawCard.CardShape}{drawCard.CardNumber}]");
+                        Write("딜러의 패: ");
+                        _dealer.ShowCard();
+                        score = _dealer.ScoreCounter();
+                        WriteLine($"딜러 점수: {score}");
+                        WriteLine();
+                        if (score >= 17 )  // 딜러는 카드의 합이 17이상이 될 때까지 드로우
                         {
-                            drawCard = Card.DrawCard(cards);
-                            Write($"딜러가 카드를 받았습니다: ");
-                            _dealer.AddCard(drawCard);
-                            WriteLine($"[{drawCard.CardShape}{drawCard.CardNumber}]");
-                            Write("딜러의 패: ");
-                            _dealer.ShowCard();
-                            score = _dealer.ScoreCounter();
-                            WriteLine($"딜러 점수: {score}");
-                            WriteLine();
-                            // 나상욱 추가 (딜러 21점 초과시에도 플레이어 패배)
-                            if (score > 21)
-                            {
-                                WriteLine("빠스트!!!!! 나가!!!!");
-                                winner = "플레이어";
-                                GameResult();
-                                return;
-                            }
-                            // 여기까지 추가
-                        }
-                        else
-                        {
-                            if(score > 21)  // 딜러 버스트
+                            if (score > 21)  // 딜러 버스트
                             {
                                 Console.WriteLine("버스트! 21을 초과했습니다.");
                                 winner = "플레이어";
                                 return;
                             }
-
                             return;
                         }
+                       
                     }
                 }
             }
@@ -123,6 +143,7 @@ class GameManager
         }
     }
 
+
     public void GameResult()
     {
         int playerScore = _player.ScoreCounter();
@@ -131,7 +152,7 @@ class GameManager
         {
             winner = "플레이어";
         }
-        else if (playerScore < dealerScore)
+        else if ((playerScore < dealerScore) && winner == null)
         {
             winner = "딜러";
         }
@@ -141,11 +162,14 @@ class GameManager
         WriteLine();
         if (winner == "플레이어")
         {
-            Console.WriteLine("플레이어 승리!");
+            Console.WriteLine($"플레이어 승리! (+{_bet}개)");
+            _player.Chips += _bet;
+
         }
         else if(winner == "딜러")
         {
-            Console.WriteLine("플레이어 패배!");
+            Console.WriteLine($"플레이어 패배! (-{_bet}개)");
+            _player.Chips -= _bet;
         }
         else
         {

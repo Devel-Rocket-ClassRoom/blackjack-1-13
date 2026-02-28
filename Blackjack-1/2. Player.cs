@@ -13,10 +13,13 @@ class Player
     public int Score { get; set; }  // 점수 프로퍼티
     public string Name { get; set; }  // 플레이어 이름 프로퍼티
 
+    public int Chips { get; set; }   // 플레이어 칩 프로퍼티
+
     public Player (string name)  // 플레이서 생성자 - 이름과 점수 초기화
     {
         Name = name;
         Score = 0;
+        Chips = 1000;   // 초기 금액 1000
     }
 
     public void AddCard(Card card)  // MyCard 배열에 카드를 추가하는 메서드
@@ -36,6 +39,7 @@ class Player
 
     public int ScoreCounter()  // 점수 
     {
+        int numA = 0;
         int sum = 0;
         int number;  // 후에 out으로 할당
         for (int i = 0; i < currentCardNum; i++)
@@ -53,10 +57,24 @@ class Player
                 }
                 else
                 {
-                    sum += 11;
+                    numA++;
                 }
             }
         }
+
+        if (numA > 0)
+        {
+            if (sum + 11 + numA - 1 <= 21)
+            {
+                sum += 11 + numA - 1;
+            }
+            else
+            {
+                sum += numA;
+            }
+        }
+        
+
         return sum;
     }
 }
