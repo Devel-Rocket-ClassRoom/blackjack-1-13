@@ -27,7 +27,7 @@ class GameManager
 
             if (int.TryParse(input, out int number))
             {
-                if (_player.Chips >= number)
+                if (Player.Chips >= number)
                 {
                     _bet = number;
                     break;
@@ -49,7 +49,7 @@ class GameManager
     public void Init()  // 초기 스테이지
     {
         Console.WriteLine("=== 블랙잭 게임 ===");
-        WriteLine($"보유 칩: {_player.Chips}개");
+        WriteLine($"보유 칩: {Player.Chips}개");
         Console.WriteLine();
         BettingCheck();  // 베팅체크
         Console.WriteLine("카드를 섞는 중...");
@@ -135,7 +135,7 @@ class GameManager
                     }
                 }
             }
-            else  // 힛(H) 혹은 스탠그 (S)를 제외한 문자 입력시
+            else  // 힛(H) 혹은 스탠드 (S)를 제외한 문자 입력시
             {
                 Console.WriteLine("H 나 S를 입력해주세요");
                 WriteLine();
@@ -163,13 +163,13 @@ class GameManager
         if (winner == "플레이어")
         {
             Console.WriteLine($"플레이어 승리! (+{_bet}개)");
-            _player.Chips += _bet;
+            Player.Chips += _bet;
 
         }
         else if(winner == "딜러")
         {
             Console.WriteLine($"플레이어 패배! (-{_bet}개)");
-            _player.Chips -= _bet;
+            Player.Chips -= _bet;
         }
         else
         {

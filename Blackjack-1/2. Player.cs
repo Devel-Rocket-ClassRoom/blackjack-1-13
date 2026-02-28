@@ -13,13 +13,12 @@ class Player
     public int Score { get; set; }  // 점수 프로퍼티
     public string Name { get; set; }  // 플레이어 이름 프로퍼티
 
-    public int Chips { get; set; }   // 플레이어 칩 프로퍼티
+    public static int Chips { get; set; } = 1000;  // 플레이어 칩 프로퍼티
 
     public Player (string name)  // 플레이서 생성자 - 이름과 점수 초기화
     {
         Name = name;
         Score = 0;
-        Chips = 1000;   // 초기 금액 1000
     }
 
     public void AddCard(Card card)  // MyCard 배열에 카드를 추가하는 메서드
