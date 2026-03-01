@@ -15,6 +15,8 @@ class Player
 
     public static int Chips { get; set; } = 1000;  // 플레이어 칩 프로퍼티
 
+
+
     public Player (string name)  // 플레이어 생성자 - 이름과 점수 초기화
     {
         Name = name;

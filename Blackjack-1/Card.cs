@@ -12,8 +12,7 @@ class Card
 
     public string CardShape { get; set; }  //  카드 모양 property
     public string CardNumber { get; set; }  //  카드 넘버 property
-
-    public bool IsDrawn = false;  // 카드 중복 확인 bool 
+    public bool IsDrawn { get; set; } = false;  // 카드 중복 확인 bool 
 
     public Card (string shape, string number)  // 카드 생성자
     {

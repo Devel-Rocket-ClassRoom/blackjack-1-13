@@ -7,7 +7,7 @@ class GameManager
 {
     private Player _player;
     private Player _dealer;
-    private string winner = null;
+    private string _winner = null;
     private int _bet = 0;
 
     // 게임 매니저 생성자 플레이어 지정
@@ -91,7 +91,7 @@ class GameManager
                     if (score > 21)  // 플레이어 버스트 ( 플레이어 힛 중 21 초과시 )
                     {
                         Console.WriteLine("버스트! 21을 초과했습니다.");
-                        winner = "딜러";
+                        _winner = "딜러";
                         return;
                     }
                     // 요까지 (이슈 : 게임은 플레이서 승리는 표시하지만 게임이 안끝나고 힛스탠드 표시로 넘어감
@@ -125,7 +125,7 @@ class GameManager
                             if (score > 21)  // 딜러 버스트
                             {
                                 Console.WriteLine("버스트! 21을 초과했습니다.");
-                                winner = "플레이어";
+                                _winner = "플레이어";
                                 return;
                             }
                             return;
@@ -147,25 +147,25 @@ class GameManager
     {
         int playerScore = _player.ScoreCounter();
         int dealerScore = _dealer.ScoreCounter();
-        if ((playerScore > dealerScore) && winner == null)
+        if ((playerScore > dealerScore) && _winner == null)
         {
-            winner = "플레이어";
+            _winner = "플레이어";
         }
-        else if ((playerScore < dealerScore) && winner == null)
+        else if ((playerScore < dealerScore) && _winner == null)
         {
-            winner = "딜러";
+            _winner = "딜러";
         }
         WriteLine("=== 게임 결과 ===");
         WriteLine($"플레이어: {playerScore}");
         WriteLine($"딜러: {dealerScore}");
         WriteLine();
-        if (winner == "플레이어")
+        if (_winner == "플레이어")
         {
             Console.WriteLine($"플레이어 승리! (+{_bet}개)");
             Player.Chips += _bet;
 
         }
-        else if(winner == "딜러")
+        else if(_winner == "딜러")
         {
             Console.WriteLine($"플레이어 패배! (-{_bet}개)");
             Player.Chips -= _bet;
