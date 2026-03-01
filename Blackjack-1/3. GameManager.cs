@@ -25,7 +25,7 @@ class GameManager
             Write("베팅 금액을 입력하세요: ");
             string input = Console.ReadLine();
 
-            if (int.TryParse(input, out int number))
+            if (int.TryParse(input, out int number))  // 베팅금액 검사 조건문
             {
                 if (Player.Chips >= number)
                 {
@@ -73,7 +73,7 @@ class GameManager
             if (string.Equals(query, "h", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(query, "s", StringComparison.OrdinalIgnoreCase))
             {
-                if (query == "h")  // 플레이어 힛
+                if (query == "h")  // 플레이어 힛 시
                 {
                     Card drawCard = Card.DrawCard(cards);
                     WriteLine();
@@ -87,9 +87,8 @@ class GameManager
                     WriteLine($"플레이어 점수: {score}");
                     WriteLine();
 
-                   
 
-                    if (score > 21)  // 플레이어 버스트 ( 21 초과시 )
+                    if (score > 21)  // 플레이어 버스트 ( 플레이어 힛 중 21 초과시 )
                     {
                         Console.WriteLine("버스트! 21을 초과했습니다.");
                         winner = "딜러";
@@ -97,7 +96,7 @@ class GameManager
                     }
                     // 요까지 (이슈 : 게임은 플레이서 승리는 표시하지만 게임이 안끝나고 힛스탠드 표시로 넘어감
                 }
-                else  // 플레이어 스탠드
+                else  // 플레이어 스탠드 시
                 {
                     Card drawCard;
                     int score = _dealer.ScoreCounter();

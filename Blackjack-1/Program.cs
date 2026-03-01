@@ -7,10 +7,6 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 // Black Jack
 
-
-
-
-
 while (true)
 {
     // 2차원 배열 카드 초기화 cards
