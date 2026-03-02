@@ -9,6 +9,7 @@ class GameManager
     private Player _dealer;
     private string _winner = null;
     private int _bet = 0;
+    
 
     // 게임 매니저 생성자 플레이어 지정
     public GameManager(Player dealer, Player player)
@@ -62,12 +63,13 @@ class GameManager
 
     public void Init()  // 초기 스테이지
     {
-        Console.WriteLine("=== 블랙잭 게임 ===");
+        WriteLine("=== 블랙잭 게임 ===");
         WriteLine($"보유 칩: {Player.Chips}개");
-        Console.WriteLine();
+        WriteLine();
         BettingCheck();  // 베팅체크
-        Console.WriteLine("카드를 섞는 중...");
-        Console.WriteLine();
+        WriteLine();
+        WriteLine("카드를 섞는 중...");
+        WriteLine();
         WriteLine("=== 초기 패 ===");
         WriteLine($"딜러의 패: [??] [{_dealer.MyCard[1].CardShape}{_dealer.MyCard[1].CardNumber}]");
         WriteLine("딜러 점수: ?");
@@ -83,7 +85,7 @@ class GameManager
         while (true)
         {
             Write("H(Hit) 또는 S(Stand)를 선택하세요: ");
-            string query = Console.ReadLine();
+            string query = ReadLine();
             if (string.Equals(query, "h", StringComparison.OrdinalIgnoreCase) ||
                 string.Equals(query, "s", StringComparison.OrdinalIgnoreCase))  // H or S 대소문자 구분 무
             {
