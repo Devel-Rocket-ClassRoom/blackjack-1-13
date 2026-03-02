@@ -18,32 +18,46 @@ class GameManager
     }
 
 
-    public void BettingCheck ()    //  베팅금액 체크;
+    public void BettingCheck()    //  베팅금액 체크;
     {
         while (true)
         {
             Write("베팅 금액을 입력하세요: ");
             string input = Console.ReadLine();
 
-            if (int.TryParse(input, out int number))  // 베팅금액 검사 조건문
+            // 베팅금액 검사 조건문
+            if (int.TryParse(input, out int number))  // out = 받은 변수 int number로 변환해서 출력
             {
-                if (Player.Chips >= number)
+                if (number < 0)  // 베팅금액 양수/음수 체크
+                {
+                    Console.WriteLine("유효한 금액을 베팅해주세요 (음수 감지됨)");
+                    continue;  // 음수 continue로 현재 반복문 다시 실행
+                }
+                if (number == 0)
+                {
+                    Console.WriteLine("0은 베팅할 수 없습니다.");
+                    continue;
+                }
+                if (Player.Chips >= number)  // 베팅 정상 작동 
                 {
                     _bet = number;
                     break;
                 }
-                else
+                else  // 보유 칩보다 베팅금액이 많을 시
                 {
                     WriteLine("보유한 칩보다 베팅금액이 많습니다.");
                 }
-                
             }
             else
             {
                 Console.WriteLine("숫자를 입력해주세요");
             }
+            
+            
         }
     }
+    
+
 
 
     public void Init()  // 초기 스테이지
@@ -71,7 +85,7 @@ class GameManager
             Write("H(Hit) 또는 S(Stand)를 선택하세요: ");
             string query = Console.ReadLine();
             if (string.Equals(query, "h", StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(query, "s", StringComparison.OrdinalIgnoreCase))
+                string.Equals(query, "s", StringComparison.OrdinalIgnoreCase))  // H or S 대소문자 구분 무
             {
                 if (query == "h")  // 플레이어 힛 시
                 {

@@ -28,11 +28,12 @@ while (true)
     player.AddCard(Card.DrawCard(cards));
     player.AddCard(Card.DrawCard(cards));
    
-    GM.Init();
-    GM.GameStart(cards);
+    GM.Init();  
+    GM.GameStart(cards); 
     GM.GameResult();
     WriteLine();
 
+   
 
     // 파산 엔딩 지정자
     if (Player.Chips == 0)  
